@@ -23,6 +23,8 @@ public class Main {
         driver.get("https://www.avito.ru/rossiya/avtomobili");
         WebElement element = driver.findElement(By.xpath("(//h1[text()='Купить автомобиль'])"));
         String typing = element.getAttribute("offsetHeight");
+
+        System.out.println("skjdnf");
         System.out.println(typing);
 
 
