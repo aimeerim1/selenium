@@ -4,6 +4,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +15,7 @@ import java.time.Duration;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         WebDriver driver = new ChromeDriver();
 //        WebElement input = driver.findElement(By.className());
@@ -27,12 +29,27 @@ public class Main {
 //        System.out.println(typing);
 
         //get cssValue
-        driver.get("https://www.udemy.com/");
-        WebElement element = driver.findElement(By.xpath("//input[@name='q']"));
+//        driver.get("https://www.udemy.com/");
+//        WebElement element = driver.findElement(By.xpath("//input[@name='q']"));
 //        String param = element.getCssValue("display");
 //        System.out.println(param);
 //        element.click();
-        element.sendKeys("JavaScript React", Keys.ENTER);
+//        element.sendKeys("JavaScript React", Keys.ENTER);
 
+        try{
+            driver.get("https://crossbrowsertesting.github.io/drag-and-drop");
+            Thread.sleep(2000);
+            WebElement element = driver.findElement(By.id(("draggable")));
+            WebElement element2 = driver.findElement(By.id(("droppable")));
+            
+            Actions actions = new Actions (driver);
+             actions.moveToElement(element).clickAndHold().moveToElement(element2).release().build().perform(); //можно это все заменить с dragAndDrop
+            
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+            Thread.sleep(20000);
+            driver.quit();
+        }
         }
 }
